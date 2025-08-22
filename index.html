@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Oscarspin - Loading...</title>
+    <style>
+        body { margin: 0; padding: 0; background: #000; overflow: hidden; }
+        .loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 1000; display: none; }
+    </style>
+</head>
+<body>
+    <div class="loader"></div>
+
+    <script>
+        function redirectByCountry() {
+            const lang = navigator.language || navigator.userLanguage;
+            const countryMap = {
+                'ro': 'lp-ro.html',
+                'el': 'lp-gr.html',
+                'cs': 'lp-cz.html',
+                'sk': 'lp-sk.html',
+                'sl': 'lp-si.html',
+                'pt': 'lp-pt.html',
+                'en': 'lp-en.html'
+            };
+
+            let redirectUrl = 'index-en.html'; // Fallback to English
+            if (lang) {
+                const langCode = lang.split('-')[0].toLowerCase();
+                redirectUrl = countryMap[langCode] || 'index-en.html';
+            }
+
+            // Instant redirect with minimal delay (500ms)
+            setTimeout(() => {
+                window.location.href = redirectUrl;
+            }, 500);
+        }
+
+        // Start redirection immediately
+        window.onload = redirectByCountry;
+    </script>
+</body>
+</html>
