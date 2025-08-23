@@ -3,56 +3,65 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bónus Casino Especial</title>
+  <title>Bónus Casino XPTO</title>
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(180deg, #0a0a0a, #1c1c1c);
+      font-family: 'Arial', sans-serif;
+      background: radial-gradient(circle at center, #111, #000);
       color: #fff;
       text-align: center;
     }
     h1 {
-      margin-top: 20px;
-      font-size: 26px;
+      margin: 20px;
+      font-size: 28px;
       color: #FFD700;
-      text-shadow: 0 0 10px #ff4500;
+      text-shadow: 0 0 15px #ff4500;
     }
-    .wheel-container {
-      margin: 30px auto;
-      width: 300px;
-      height: 300px;
+    .wheel-wrapper {
+      position: relative;
+      margin: 40px auto;
+      width: 320px;
+      height: 320px;
+    }
+    .wheel {
+      width: 100%;
+      height: 100%;
       border-radius: 50%;
       border: 10px solid #FFD700;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 0 25px rgba(255,215,0,0.6);
+      box-shadow: 0 0 30px rgba(255,215,0,0.7);
+      background: conic-gradient(
+        #ff4500 0deg 60deg,
+        #ff7300 60deg 120deg,
+        #ff4500 120deg 180deg,
+        #ff7300 180deg 240deg,
+        #ff4500 240deg 300deg,
+        #ff7300 300deg 360deg
+      );
+      transition: transform 4s cubic-bezier(.17,.67,.83,.67);
     }
-    .segment {
+    .pointer {
       position: absolute;
-      width: 50%;
-      height: 50%;
-      background: #ff4500;
-      transform-origin: 100% 100%;
-      clip-path: polygon(100% 100%, 0 100%, 100% 0);
-      color: #fff;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0; height: 0;
+      border-left: 15px solid transparent;
+      border-right: 15px solid transparent;
+      border-bottom: 30px solid #FFD700;
+      filter: drop-shadow(0 0 5px #ff4500);
     }
     .btn {
       display: inline-block;
       margin-top: 20px;
-      padding: 15px 25px;
+      padding: 15px 30px;
       background: linear-gradient(90deg, #ff0000, #ff7300);
       color: #fff;
-      font-size: 18px;
+      font-size: 20px;
       font-weight: bold;
-      border-radius: 10px;
+      border-radius: 12px;
       text-decoration: none;
-      box-shadow: 0 0 15px rgba(255,0,0,0.7);
+      box-shadow: 0 0 15px rgba(255,0,0,0.8);
       animation: pulse 1.5s infinite;
     }
     @keyframes pulse {
@@ -64,7 +73,7 @@
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(0,0,0,0.8);
+      background: rgba(0,0,0,0.85);
       display: none;
       align-items: center;
       justify-content: center;
@@ -75,23 +84,44 @@
       border-radius: 12px;
       text-align: center;
       box-shadow: 0 0 20px rgba(255,215,0,0.5);
+      max-width: 300px;
     }
     .popup-content h2 {
       color: #FFD700;
       margin-bottom: 15px;
     }
+    /* Testemunhos com foto */
     .testimonials {
-      margin-top: 40px;
+      margin: 40px auto;
       padding: 20px;
+      max-width: 400px;
       background: #111;
       border-radius: 10px;
     }
     .testimonial {
-      font-size: 14px;
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 15px;
+    }
+    .testimonial img.avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-right: 12px;
+      border: 2px solid #FFD700;
+      box-shadow: 0 0 8px rgba(255,215,0,0.5);
+    }
+    .testimonial .text {
+      text-align: left;
       color: #ddd;
-      margin-bottom: 10px;
-      border-left: 3px solid #ff4500;
-      padding-left: 8px;
+      font-size: 14px;
+    }
+    .testimonial b {
+      color: #FFD700;
+    }
+    .testimonial .time {
+      font-size: 12px;
+      color: #888;
     }
     .footer {
       margin: 20px 0;
@@ -101,32 +131,50 @@
   </style>
 </head>
 <body>
-  <h1>🎰 Ganhe até 4500€ + 350 Rodadas Grátis!</h1>
+  <h1>🎰 Gira a Roda e Ganha até 4500€ + 350 Rodadas Grátis!</h1>
   
-  <div class="wheel-container" id="wheel">
-    <!-- Segments -->
-    <div class="segment" style="background:#ff4500; transform: rotate(0deg) skewY(-45deg);">100€</div>
-    <div class="segment" style="background:#ff7300; transform: rotate(60deg) skewY(-45deg);">50€</div>
-    <div class="segment" style="background:#ff4500; transform: rotate(120deg) skewY(-45deg);">200€</div>
-    <div class="segment" style="background:#ff7300; transform: rotate(180deg) skewY(-45deg);">350 Spins</div>
-    <div class="segment" style="background:#ff4500; transform: rotate(240deg) skewY(-45deg);">4500€</div>
-    <div class="segment" style="background:#ff7300; transform: rotate(300deg) skewY(-45deg);">100 Spins</div>
+  <div class="wheel-wrapper">
+    <div class="wheel" id="wheel"></div>
+    <div class="pointer"></div>
   </div>
 
   <a href="#" class="btn" id="spinBtn">🎯 Girar a Roda</a>
 
+  <!-- Testemunhos com foto -->
   <div class="testimonials">
     <h3>📢 Jogadores Reais:</h3>
-    <div class="testimonial">“Depositei 20€ e ganhei 200€. Roda da sorte incrível!” – João, Lisboa</div>
-    <div class="testimonial">“Consegui 350 rodadas grátis, já estou a jogar slots 🔥” – Ana, Porto</div>
-    <div class="testimonial">“O melhor bónus que já vi em casino online 👌” – Miguel, Braga</div>
+
+    <div class="testimonial">
+      <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Tiago" class="avatar">
+      <div class="text">
+        <b>Tiago, Porto</b> <span class="time">· há 2 dias</span>
+        <p>“Depositei 30€ e retirei 220€ na mesma noite 🔥 Melhor decisão!”</p>
+      </div>
+    </div>
+
+    <div class="testimonial">
+      <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Sofia" class="avatar">
+      <div class="text">
+        <b>Sofia, Lisboa</b> <span class="time">· há 5h</span>
+        <p>“Ganhei 350 rodadas grátis, já estou a jogar slots todos os dias 😍”</p>
+      </div>
+    </div>
+
+    <div class="testimonial">
+      <img src="https://randomuser.me/api/portraits/men/12.jpg" alt="Ricardo" class="avatar">
+      <div class="text">
+        <b>Ricardo, Braga</b> <span class="time">· ontem</span>
+        <p>“Investi 50€ e subi para 400€ em poucas horas! Surreal 🚀”</p>
+      </div>
+    </div>
   </div>
 
+  <!-- Popup de vitória -->
   <div class="popup" id="popup">
     <div class="popup-content">
       <h2>🎉 Parabéns!</h2>
       <p>Ganhaste o teu <b>Bónus Especial</b> 🎁</p>
-      <a href="https://track.intrklnkmain.com/visit/?bta=48035&brand=oscarspin&afp=POPUP&geo=pt" class="btn">Reivindicar Agora</a>
+      <a href="https://track.intrklnkmain.com/visit/?bta=48035&brand=oscarspin&afp=POPUP&geo=pt&subid={clickid}" class="btn">Reivindicar Agora</a>
     </div>
   </div>
 
@@ -135,16 +183,19 @@
   <script>
     const spinBtn = document.getElementById("spinBtn");
     const popup = document.getElementById("popup");
+    const wheel = document.getElementById("wheel");
+    let spinning = false;
 
     spinBtn.addEventListener("click", function(e){
       e.preventDefault();
-      // simulação da rotação
-      document.getElementById("wheel").style.transition = "transform 3s ease-out";
-      document.getElementById("wheel").style.transform = "rotate(" + (720 + Math.floor(Math.random()*360)) + "deg)";
-      
+      if(spinning) return;
+      spinning = true;
+      let deg = 1800 + Math.floor(Math.random()*360); // várias voltas + resultado
+      wheel.style.transform = "rotate(" + deg + "deg)";
       setTimeout(() => {
         popup.style.display = "flex";
-      }, 3200);
+        spinning = false;
+      }, 4200);
     });
   </script>
 </body>
