@@ -115,17 +115,76 @@
 </div>
 
 <script>
-  /* countdown 5 minutos (reinicia) */
+  const wheel = document.getElementById('wheel');
+  const btn   = document.getElementById('spinBtn');
+  const popup = document.getElementById('popup');
+  const cta   = document.getElementById('ctaFinal');
+  let spinning = false;
+
+  // Countdown 5 min (reinicia)
   (function(){
-    const el = document.getElementById('timer'); let t = 5*60;
-    setInterval(()=>{ const m=String(Math.floor(t/60)).padStart(2,'0'); const s=String(t%60).padStart(2,'0'); el.textContent=m+':'+s; t--; if(t<0)t=5*60; },1000);
+    const el = document.getElementById('timer');
+    if (!el) return; // caso não tenhas countdown nesta versão
+    let t = 5*60;
+    setInterval(()=>{
+      const m = String(Math.floor(t/60)).padStart(2,'0');
+      const s = String(t%60).padStart(2,'0');
+      el.textContent = m+':'+s;
+      t--; if (t<0) t = 5*60;
+    },1000);
   })();
 
-  const wheel=document.getElementById('wheel');
-  const btn=document.getElementById('spinBtn');
-  const popup=document.getElementById('popup');
-  const cta=document.getElementById('ctaFinal');
-  let spinning=false;
+  // Propagar parâmetros UTM/clickid para o CTA final (opcional)
+  (function propagate(){
+    if (!cta) return;
+    const qs = location.search;
+    if (!qs) return;
+    const url = new URL(cta.href);
+    const incoming = new URLSearchParams(qs);
+    incoming.forEach((v,k)=>{ if(!url.searchParams.has(k)) url.searchParams.append(k,v); });
+    cta.href = url.toString();
+  })();
 
-  // Propaga parâmetros UTM/clickid que vierem na URL para o link final
-  (function propag
+  // Ângulos favoráveis (pára sempre em “bónus” com ponteiro em baixo)
+  const bonusAngles = [22.5,112.5,202.5,292.5];
+
+  function spin() {
+    if (spinning || !wheel) return;
+    spinning = true;
+
+    // Reset estado para garantir transição
+    wheel.style.transition = 'none';
+    wheel.style.transform  = 'rotate(0deg)';
+    // forçar reflow
+    void wheel.offsetWidth;
+
+    // definir rotação final no próximo frame
+    const target   = bonusAngles[Math.floor(Math.random()*bonusAngles.length)];
+    const turns    = 6;
+    const finalDeg = (turns*360) + (360 - target);
+
+    requestAnimationFrame(() => {
+      wheel.style.transition = 'transform 4.2s cubic-bezier(.17,.67,.34,1.05)';
+      wheel.style.transform  = `rotate(${finalDeg}deg)`;
+    });
+
+    // Mostrar popup quando terminar
+    setTimeout(() => {
+      if (popup) popup.style.display = 'flex';
+      spinning = false;
+    }, 4300);
+  }
+
+  // Clique no botão (se for <a>, evita navegação)
+  if (btn) {
+    btn.addEventListener('click', e => { e.preventDefault(); spin(); });
+  }
+
+  // Autospin após 5s para quem não clicar
+  setTimeout(() => { spin(); }, 5000);
+
+  // Fechar popup ao clicar fora
+  if (popup) {
+    popup.addEventListener('click', e => { if (e.target === popup) popup.style.display = 'none'; });
+  }
+</script>
