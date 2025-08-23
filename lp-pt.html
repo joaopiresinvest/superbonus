@@ -1,202 +1,214 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bónus Casino XPTO</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Arial', sans-serif;
-      background: radial-gradient(circle at center, #111, #000);
-      color: #fff;
-      text-align: center;
-    }
-    h1 {
-      margin: 20px;
-      font-size: 28px;
-      color: #FFD700;
-      text-shadow: 0 0 15px #ff4500;
-    }
-    .wheel-wrapper {
-      position: relative;
-      margin: 40px auto;
-      width: 320px;
-      height: 320px;
-    }
-    .wheel {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      border: 10px solid #FFD700;
-      box-shadow: 0 0 30px rgba(255,215,0,0.7);
-      background: conic-gradient(
-        #ff4500 0deg 60deg,
-        #ff7300 60deg 120deg,
-        #ff4500 120deg 180deg,
-        #ff7300 180deg 240deg,
-        #ff4500 240deg 300deg,
-        #ff7300 300deg 360deg
-      );
-      transition: transform 4s cubic-bezier(.17,.67,.83,.67);
-    }
-    .pointer {
-      position: absolute;
-      top: -20px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 0; height: 0;
-      border-left: 15px solid transparent;
-      border-right: 15px solid transparent;
-      border-bottom: 30px solid #FFD700;
-      filter: drop-shadow(0 0 5px #ff4500);
-    }
-    .btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 15px 30px;
-      background: linear-gradient(90deg, #ff0000, #ff7300);
-      color: #fff;
-      font-size: 20px;
-      font-weight: bold;
-      border-radius: 12px;
-      text-decoration: none;
-      box-shadow: 0 0 15px rgba(255,0,0,0.8);
-      animation: pulse 1.5s infinite;
-    }
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-    .popup {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.85);
-      display: none;
-      align-items: center;
-      justify-content: center;
-    }
-    .popup-content {
-      background: #111;
-      padding: 25px;
-      border-radius: 12px;
-      text-align: center;
-      box-shadow: 0 0 20px rgba(255,215,0,0.5);
-      max-width: 300px;
-    }
-    .popup-content h2 {
-      color: #FFD700;
-      margin-bottom: 15px;
-    }
-    /* Testemunhos com foto */
-    .testimonials {
-      margin: 40px auto;
-      padding: 20px;
-      max-width: 400px;
-      background: #111;
-      border-radius: 10px;
-    }
-    .testimonial {
-      display: flex;
-      align-items: flex-start;
-      margin-bottom: 15px;
-    }
-    .testimonial img.avatar {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      margin-right: 12px;
-      border: 2px solid #FFD700;
-      box-shadow: 0 0 8px rgba(255,215,0,0.5);
-    }
-    .testimonial .text {
-      text-align: left;
-      color: #ddd;
-      font-size: 14px;
-    }
-    .testimonial b {
-      color: #FFD700;
-    }
-    .testimonial .time {
-      font-size: 12px;
-      color: #888;
-    }
-    .footer {
-      margin: 20px 0;
-      font-size: 12px;
-      color: #666;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Bónus Casino XPTO • Roda da Sorte</title>
+<style>
+  :root{
+    --gold:#FFD700;
+    --red1:#ff4500;
+    --red2:#ff7300;
+    --bg1:#0a0a0a;
+    --bg2:#000000;
+    --green:#00B67A; /* tom “trust” */
+  }
+  html,body{margin:0;padding:0;background:radial-gradient(circle at 50% 0%, #111 0%, var(--bg2) 60%);font-family:Arial,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#fff;text-align:center}
+  .wrap{max-width:980px;margin:0 auto;padding:20px}
+  h1{margin:10px 0 6px;font-size:28px;color:var(--gold);text-shadow:0 0 14px var(--red1)}
+  .sub{color:#ddd;margin:0 0 16px}
+  /* features */
+  .features{display:grid;gap:8px;max-width:560px;margin:18px auto 10px}
+  .features p{margin:0;padding:10px 12px;background:#121212;border:1px solid #1f1f1f;border-radius:10px}
+  /* trustbox estilo Trustpilot (sem logo) */
+  .trustbox{display:flex;align-items:center;justify-content:center;gap:14px;background:#0f0f0f;border:1px solid #1f1f1f;border-radius:12px;padding:12px 14px;max-width:620px;margin:10px auto 0}
+  .trust-left{display:flex;align-items:center;gap:8px}
+  .trust-score{background:var(--green);color:#fff;font-weight:700;border-radius:6px;padding:6px 10px;font-size:16px;box-shadow:0 0 14px rgba(0,182,122,.45)}
+  .stars{display:flex;gap:4px}
+  .star{width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-bottom:14px solid #fff;position:relative;transform:rotate(35deg)}
+  .star:before,.star:after{content:"";position:absolute;top:5px;left:-8px;width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-bottom:14px solid #fff}
+  .star:before{transform:rotate(-70deg)}
+  .star:after{transform:rotate(70deg)}
+  .trust-right{font-size:14px;color:#cfcfcf}
+  .trust-right b{color:#fff}
+  /* countdown */
+  .countdown{font-size:20px;color:#ff4b4b;margin:14px 0 6px;font-weight:700;text-shadow:0 0 10px #ff0000}
+  /* roda */
+  .wheel-zone{margin:22px auto 6px}
+  .wheel-wrap{position:relative;width:340px;height:340px;margin:0 auto}
+  .wheel{width:100%;height:100%;border-radius:50%;border:10px solid var(--gold);box-shadow:0 0 30px rgba(255,215,0,.6), inset 0 0 40px rgba(255,255,255,.05);
+         background:conic-gradient(var(--red1) 0 45deg,var(--red2) 45deg 90deg,var(--red1) 90deg 135deg,var(--red2) 135deg 180deg,var(--red1) 180deg 225deg,var(--red2) 225deg 270deg,var(--red1) 270deg 315deg,var(--red2) 315deg 360deg);
+         transition:transform 4.2s cubic-bezier(.17,.67,.34,1.05); position:relative; overflow:hidden}
+  .pointer{position:absolute;top:-18px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:16px solid transparent;border-right:16px solid transparent;border-bottom:28px solid var(--gold);filter:drop-shadow(0 0 6px var(--red1))}
+  /* labels dos segmentos */
+  .label{position:absolute;left:50%;top:50%;transform-origin:0 0;color:#fff;font-weight:800;font-size:14px;text-shadow:0 0 6px rgba(0,0,0,.7)}
+  /* oito rótulos (45° cada) */
+  .l1{transform:rotate(22.5deg) translate(90px) rotate(-22.5deg)}
+  .l2{transform:rotate(67.5deg) translate(90px) rotate(-67.5deg)}
+  .l3{transform:rotate(112.5deg) translate(90px) rotate(-112.5deg)}
+  .l4{transform:rotate(157.5deg) translate(90px) rotate(-157.5deg)}
+  .l5{transform:rotate(202.5deg) translate(90px) rotate(-202.5deg)}
+  .l6{transform:rotate(247.5deg) translate(90px) rotate(-247.5deg)}
+  .l7{transform:rotate(292.5deg) translate(90px) rotate(-292.5deg)}
+  .l8{transform:rotate(337.5deg) translate(90px) rotate(-337.5deg)}
+  .badge{display:inline-block;padding:2px 6px;border-radius:6px;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.25)}
+  .b-green{background:rgba(0,182,122,.25);border-color:rgba(0,182,122,.6)}
+  .b-red{background:rgba(255,69,0,.2);border-color:rgba(255,69,0,.65)}
+  /* botão */
+  .btn{display:inline-block;margin:16px auto 6px;padding:14px 26px;background:linear-gradient(90deg,#ff0000,#ff7300);color:#fff;font-size:20px;font-weight:800;
+       border-radius:12px;text-decoration:none;box-shadow:0 0 18px rgba(255,0,0,.8);animation:pulse 1.5s infinite}
+  @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
+  /* testemunhos com foto */
+  .testimonials{max-width:720px;margin:26px auto 14px;display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+  .card{display:flex;gap:12px;background:#0f0f0f;border:1px solid #1f1f1f;border-radius:12px;padding:12px}
+  .avatar{width:52px;height:52px;border-radius:50%;border:2px solid var(--gold);box-shadow:0 0 8px rgba(255,215,0,.45);object-fit:cover}
+  .c-name{font-weight:800;color:var(--gold)}
+  .c-time{font-size:12px;color:#9a9a9a}
+  .c-text{margin:6px 0 0;color:#ddd;font-size:14px;line-height:1.35;text-align:left}
+  /* popup */
+  .popup{position:fixed;inset:0;background:rgba(0,0,0,.86);display:none;align-items:center;justify-content:center;padding:18px}
+  .popin{background:#111;border:1px solid #2a2a2a;border-radius:14px;max-width:360px;width:100%;padding:22px;box-shadow:0 0 22px rgba(255,215,0,.45)}
+  .popin h2{margin:0 0 8px;color:var(--gold)}
+  .popin p{margin:6px 0 14px;color:#e8e8e8}
+  .disclaimer{margin:16px 0 4px;color:#8a8a8a;font-size:12px}
+  footer{margin:18px 0 8px;color:#777;font-size:12px}
+</style>
 </head>
 <body>
-  <h1>🎰 Gira a Roda e Ganha até 4500€ + 350 Rodadas Grátis!</h1>
-  
-  <div class="wheel-wrapper">
-    <div class="wheel" id="wheel"></div>
-    <div class="pointer"></div>
-  </div>
+  <div class="wrap">
+    <h1>🎰 Gira a Roda e Ganha até 4500€ + 350 Rodadas Grátis!</h1>
+    <p class="sub">Oferta exclusiva para novos utilizadores — ativa já e começa a jogar.</p>
 
-  <a href="#" class="btn" id="spinBtn">🎯 Girar a Roda</a>
-
-  <!-- Testemunhos com foto -->
-  <div class="testimonials">
-    <h3>📢 Jogadores Reais:</h3>
-
-    <div class="testimonial">
-      <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Tiago" class="avatar">
-      <div class="text">
-        <b>Tiago, Porto</b> <span class="time">· há 2 dias</span>
-        <p>“Depositei 30€ e retirei 220€ na mesma noite 🔥 Melhor decisão!”</p>
+    <!-- trust/credibilidade -->
+    <div class="trustbox" aria-label="Trust-style box">
+      <div class="trust-left">
+        <div class="trust-score">TrustScore 4.8</div>
+        <div class="stars" aria-hidden="true">
+          <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
+          <div class="star" style="opacity:.7"></div>
+        </div>
+      </div>
+      <div class="trust-right">
+        <b>10.000+</b> avaliações verificadas · <span style="color:#9ae6c9">Levantamentos rápidos</span>
       </div>
     </div>
 
-    <div class="testimonial">
-      <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Sofia" class="avatar">
-      <div class="text">
-        <b>Sofia, Lisboa</b> <span class="time">· há 5h</span>
-        <p>“Ganhei 350 rodadas grátis, já estou a jogar slots todos os dias 😍”</p>
+    <!-- countdown -->
+    <div class="countdown">⏳ Oferta expira em: <span id="timer">05:00</span></div>
+
+    <!-- features -->
+    <div class="features">
+      <p>⚡ Regista-te agora e recebe o bónus de imediato</p>
+      <p>💳 Levantamentos rápidos e seguros</p>
+      <p>🔒 Jogo responsável · 18+</p>
+    </div>
+
+    <!-- roda -->
+    <div class="wheel-zone">
+      <div class="wheel-wrap">
+        <div class="wheel" id="wheel">
+          <!-- labels -->
+          <div class="label l1"><span class="badge b-green">COM BÓNUS</span></div>
+          <div class="label l2"><span class="badge b-red">SEM BÓNUS</span></div>
+          <div class="label l3"><span class="badge b-green">COM BÓNUS</span></div>
+          <div class="label l4"><span class="badge b-red">SEM BÓNUS</span></div>
+          <div class="label l5"><span class="badge b-green">COM BÓNUS</span></div>
+          <div class="label l6"><span class="badge b-red">SEM BÓNUS</span></div>
+          <div class="label l7"><span class="badge b-green">COM BÓNUS</span></div>
+          <div class="label l8"><span class="badge b-red">SEM BÓNUS</span></div>
+        </div>
+        <div class="pointer"></div>
+      </div>
+
+      <a href="#" class="btn" id="spinBtn">🎯 Girar a Roda</a>
+    </div>
+
+    <!-- testemunhos -->
+    <div class="testimonials">
+      <div class="card">
+        <img class="avatar" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Tiago de Porto">
+        <div style="text-align:left">
+          <div class="c-name">Tiago, Porto <span class="c-time">· há 2 dias</span></div>
+          <p class="c-text">Depositei 30€ e retirei 220€ na mesma noite 🔥 O bónus entrou logo, sem complicações.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img class="avatar" src="https://randomuser.me/api/portraits/women/45.jpg" alt="Sofia de Lisboa">
+        <div style="text-align:left">
+          <div class="c-name">Sofia, Lisboa <span class="c-time">· há 5h</span></div>
+          <p class="c-text">Ganhei 350 rodadas grátis e já fiz 140€ nas slots 😍 Levantamento foi rápido.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img class="avatar" src="https://randomuser.me/api/portraits/men/12.jpg" alt="Ricardo de Braga">
+        <div style="text-align:left">
+          <div class="c-name">Ricardo, Braga <span class="c-time">· ontem</span></div>
+          <p class="c-text">Investi 50€ e subi para 400€ em poucas horas 🚀 Suporte 24/7 ajudou no processo.</p>
+        </div>
       </div>
     </div>
 
-    <div class="testimonial">
-      <img src="https://randomuser.me/api/portraits/men/12.jpg" alt="Ricardo" class="avatar">
-      <div class="text">
-        <b>Ricardo, Braga</b> <span class="time">· ontem</span>
-        <p>“Investi 50€ e subi para 400€ em poucas horas! Surreal 🚀”</p>
+    <!-- popup -->
+    <div class="popup" id="popup" role="dialog" aria-modal="true" aria-labelledby="popTitle">
+      <div class="popin">
+        <h2 id="popTitle">🎉 Parabéns!</h2>
+        <p>Calhou <b>COM BÓNUS</b> — ativa já o teu <b>pachet de boas-vindas</b> e começa a jogar.</p>
+        <a class="btn"
+           href="https://track.intrklnkmain.com/visit/?bta=48035&brand=oscarspin&afp=POPUP&geo=pt&subid={clickid}">
+           Reivindicar Agora
+        </a>
+        <div class="disclaimer">Exclusivo para novos utilizadores. Jogue com responsabilidade. 18+</div>
       </div>
     </div>
+
+    <footer>* Imagens e avaliações ilustrativas. A disponibilidade do bónus pode variar por país.</footer>
   </div>
 
-  <!-- Popup de vitória -->
-  <div class="popup" id="popup">
-    <div class="popup-content">
-      <h2>🎉 Parabéns!</h2>
-      <p>Ganhaste o teu <b>Bónus Especial</b> 🎁</p>
-      <a href="https://track.intrklnkmain.com/visit/?bta=48035&brand=oscarspin&afp=POPUP&geo=pt&subid={clickid}" class="btn">Reivindicar Agora</a>
-    </div>
-  </div>
+<script>
+  /* countdown 5 minutos, reinicia ao fim (urgência contínua) */
+  (function(){
+    const display = document.getElementById('timer');
+    let timer = 5*60; // 5 min
+    setInterval(()=>{
+      let m = String(Math.floor(timer/60)).padStart(2,'0');
+      let s = String(timer%60).padStart(2,'0');
+      display.textContent = m+':'+s;
+      timer--; if(timer < 0) timer = 5*60;
+    },1000);
+  })();
 
-  <div class="footer">*Exclusivo para novos utilizadores. Jogue com responsabilidade. 18+</div>
+  /* lógica da roda: pára sempre em COM BÓNUS */
+  const wheel = document.getElementById('wheel');
+  const spinBtn = document.getElementById('spinBtn');
+  const popup = document.getElementById('popup');
+  let spinning = false;
 
-  <script>
-    const spinBtn = document.getElementById("spinBtn");
-    const popup = document.getElementById("popup");
-    const wheel = document.getElementById("wheel");
-    let spinning = false;
+  // índices COM BÓNUS (8 segmentos, começando no topo, no sentido horário):
+  // l1, l3, l5, l7 → centros angulares: 22.5, 112.5, 202.5, 292.5
+  const bonusAngles = [22.5, 112.5, 202.5, 292.5];
 
-    spinBtn.addEventListener("click", function(e){
-      e.preventDefault();
-      if(spinning) return;
-      spinning = true;
-      let deg = 1800 + Math.floor(Math.random()*360); // várias voltas + resultado
-      wheel.style.transform = "rotate(" + deg + "deg)";
-      setTimeout(() => {
-        popup.style.display = "flex";
-        spinning = false;
-      }, 4200);
-    });
-  </script>
+  spinBtn.addEventListener('click', function(e){
+    e.preventDefault();
+    if(spinning) return;
+    spinning = true;
+
+    // escolhe aleatoriamente um dos centros COM BÓNUS e adiciona voltas
+    const target = bonusAngles[Math.floor(Math.random()*bonusAngles.length)];
+    const extraTurns = 6; // voltas completas
+    const finalDeg = (extraTurns*360) + (360 - target); // parar com ponteiro no topo
+
+    wheel.style.transform = `rotate(${finalDeg}deg)`;
+
+    setTimeout(()=>{
+      popup.style.display = 'flex';
+      spinning = false;
+    }, 4300);
+  });
+
+  // fecha popup ao clicar fora (opcional)
+  popup.addEventListener('click', (e)=>{
+    if(e.target === popup){ popup.style.display='none'; }
+  });
+</script>
 </body>
 </html>
